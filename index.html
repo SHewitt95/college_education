@@ -1,7 +1,38 @@
 <!doctype html>
 <html>
-<head></head>
+<head>
+  <title>College Education</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
 <body>
-  <h1>College Education</h1>
+  <div class="container">
+    <h1 id="headline">Higher Education in the United States</h1>
+
+    <div class="story-section">
+      <div id="form">
+        <label><input type="radio" name="mode" value="bycount" checked>Raw Count</label>
+        <label><input type="radio" name="mode" value="bypercent">As Percent of Total Count</label>
+      </div>
+      <div class="interactive interactive1"></div>
+      <div class="story story1"></div>
+    </div> <!-- End story-section -->
+
+    <div class="story-section">
+      <div class="interactive interactive2"></div>
+      <div class="story story2"></div>
+    </div> <!-- End story-section -->
+
+  </div> <!-- End container -->
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+  <!--script type="text/javascript" src="d3.min.js"></script-->
+  <!--script type="text/javascript" src="queue.v1.min.js"></script-->
+  <script src="https://d3js.org/queue.v1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/1.9.0/d3-legend.js"></script>
+  <script src="js/index.js"></script>
+
 </body>
 </html>

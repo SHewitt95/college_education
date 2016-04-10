@@ -1,0 +1,118 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/******************************** End CSS Reset ********************************/
+@import url(https://fonts.googleapis.com/css?family=Arvo:400,700|Droid+Sans);
+
+body {
+	font-size: 16px;
+	font-family: "Droid Sans", sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: "Arvo", sans-serif;
+}
+
+.container {
+	width: 75%;
+	height: 100%;
+	margin: 1.5em auto;
+}
+
+.container h1#headline {
+	font-size: 3.5em;
+	text-align: center;
+	margin-bottom: 1em;
+}
+
+.container div.story-section {
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+/************************************  ************************************/
+
+path {
+    stroke: gray;
+    stroke-width: 1;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.bar {
+  fill: steelblue;
+}
+
+.x.axis path {
+  display: none;
+}
+
+/* Style for Custom Tooltip */
+div.tooltip {
+    position: absolute;
+    text-align: left;
+    min-width: 100px;
+    height: 80px;
+    padding: 2px;
+    font: 12px sans-serif;
+    background: white;
+    border: 1px orange solid;
+    border-radius: 5px;
+    pointer-events: none;
+}
+
+.tooltip p {
+    margin: 5px;
+}

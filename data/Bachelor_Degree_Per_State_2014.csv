@@ -1,0 +1,55 @@
+GEO.id,GEO.id2,GEO.display-label,GRT_STUB.target-geo-id,GRT_STUB.target-geo-id2,GRT_STUB.rank-label,GRT_STUB.display-label,EST,MOE
+Id,Id2,Geography,Target Geo Id,Target Geo Id2,Rank,Geographical Area,Percent,Margin of Error
+0100000US,,United States,0100000US,,,United States,30.1,0.1
+0100000US,,United States,0400000US11,11,1,District of Columbia,55.0,1.0
+0100000US,,United States,0400000US25,25,2,Massachusetts,41.2,0.4
+0100000US,,United States,0400000US08,08,3,Colorado,38.3,0.4
+0100000US,,United States,0400000US24,24,4,Maryland,38.2,0.4
+0100000US,,United States,0400000US09,09,5,Connecticut,38.0,0.5
+0100000US,,United States,0400000US34,34,6,New Jersey,37.4,0.3
+0100000US,,United States,0400000US51,51,7,Virginia,36.7,0.3
+0100000US,,United States,0400000US33,33,8,New Hampshire,35.0,0.8
+0100000US,,United States,0400000US50,50,9,Vermont,34.9,1.0
+0100000US,,United States,0400000US36,36,10,New York,34.5,0.2
+0100000US,,United States,0400000US27,27,11,Minnesota,34.3,0.3
+0100000US,,United States,0400000US53,53,12,Washington,33.1,0.4
+0100000US,,United States,0400000US17,17,13,Illinois,32.8,0.2
+0100000US,,United States,0400000US06,06,14,California,31.7,0.2
+0100000US,,United States,0400000US20,20,15,Kansas,31.5,0.5
+0100000US,,United States,0400000US49,49,16,Utah,31.1,0.5
+0100000US,,United States,0400000US15,15,17,Hawaii,31.0,0.8
+0100000US,,United States,0400000US41,41,18,Oregon,30.8,0.5
+0100000US,,United States,0400000US10,10,19,Delaware,30.6,1.0
+0100000US,,United States,0400000US44,44,20,Rhode Island,30.4,1.0
+0100000US,,United States,0400000US31,31,21,Nebraska,29.5,0.6
+0100000US,,United States,0400000US23,23,22,Maine,29.4,0.7
+0100000US,,United States,0400000US30,30,23,Montana,29.3,0.7
+0100000US,,United States,0400000US13,13,24,Georgia,29.1,0.3
+0100000US,,United States,0400000US42,42,25,Pennsylvania,29.0,0.3
+0100000US,,United States,0400000US37,37,26,North Carolina,28.7,0.3
+0100000US,,United States,0400000US55,55,27,Wisconsin,28.4,0.4
+0100000US,,United States,0400000US02,02,28,Alaska,28.0,1.1
+0100000US,,United States,0400000US46,46,29,South Dakota,27.8,1.0
+0100000US,,United States,0400000US48,48,29,Texas,27.8,0.2
+0100000US,,United States,0400000US19,19,31,Iowa,27.7,0.5
+0100000US,,United States,0400000US04,04,32,Arizona,27.6,0.3
+0100000US,,United States,0400000US29,29,33,Missouri,27.5,0.4
+0100000US,,United States,0400000US26,26,34,Michigan,27.4,0.2
+0100000US,,United States,0400000US38,38,34,North Dakota,27.4,0.9
+0100000US,,United States,0400000US12,12,36,Florida,27.3,0.2
+0100000US,,United States,0400000US39,39,37,Ohio,26.6,0.2
+0100000US,,United States,0400000US56,56,37,Wyoming,26.6,1.1
+0100000US,,United States,0400000US35,35,39,New Mexico,26.4,0.5
+0100000US,,United States,0400000US45,45,40,South Carolina,26.3,0.4
+0100000US,,United States,0400000US47,47,41,Tennessee,25.3,0.4
+0100000US,,United States,0400000US16,16,42,Idaho,25.0,0.8
+0100000US,,United States,0400000US18,18,43,Indiana,24.7,0.4
+0100000US,,United States,0400000US40,40,44,Oklahoma,24.2,0.4
+0100000US,,United States,0400000US01,01,45,Alabama,23.5,0.4
+0100000US,,United States,0400000US32,32,46,Nevada,23.1,0.5
+0100000US,,United States,0400000US22,22,47,Louisiana,22.9,0.4
+0100000US,,United States,0400000US21,21,48,Kentucky,22.2,0.4
+0100000US,,United States,0400000US05,05,49,Arkansas,21.4,0.5
+0100000US,,United States,0400000US28,28,50,Mississippi,21.1,0.6
+0100000US,,United States,0400000US54,54,51,West Virginia,19.2,0.5
+0100000US,,United States,0400000US72,72,,Puerto Rico,24.4,0.4
