@@ -6,6 +6,7 @@ index.js: The file loads all the data needed for the single-page application. On
 */
 
 var fullwidth = d3.select(".container").node().getBoundingClientRect().width;
+var fullheight = 450;
 
 queue()
       .defer(d3.csv, "data/Race_Education_Data_Male_Female.csv")
@@ -26,7 +27,9 @@ function loadData(error, maleFemale, total, bachelor, pop_dist, count, genderEdu
   } else {
     drawBars(count);
     drawMap(stateCosts, states);
-    drawLineTransition(maleFemale, total);
+    //drawLineTransition(maleFemale, total);
+    var line = chart(maleFemale, total);
+    line().drawSingle();
   }
 
 }

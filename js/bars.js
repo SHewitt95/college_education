@@ -6,7 +6,7 @@ function drawBars(data) {
 
   var margin = {top: 20, right: 170, bottom: 80, left: 50},
       width = fullwidth - margin.left - margin.right,
-      height = 500 - margin.top - margin.bottom;
+      height = fullheight - margin.top - margin.bottom;
 
   var xScale = d3.scale.ordinal()
       .rangeRoundBands([0, width], .3);
@@ -35,7 +35,7 @@ function drawBars(data) {
     .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-  var tooltip = d3.select("body").append("div").attr("class", "tooltip");
+  var tooltip = d3.select("body").append("div").attr("class", "tooltip").style("display", "none");
 
 //  d3.csv("data/Race_Education_Count.csv", function(error, data) {
 

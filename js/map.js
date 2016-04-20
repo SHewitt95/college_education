@@ -1,7 +1,7 @@
 function drawMap(costs, json) {
 
   //Width and height of map
-  var width = 960;
+  var width = fullwidth;
   var height = 500;
 
   // D3 Projection

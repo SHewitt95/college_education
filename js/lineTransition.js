@@ -2,7 +2,7 @@ function drawLineTransition(maleFemale, total) {
 
   //Dimensions and padding
   var fullwidth = 950;
-  var fullheight = 400;
+  var fullheight = 375;
   var margin = {top: 20, right: 30, bottom: 40, left: 50};
 
   var width = fullwidth - margin.left - margin.right;
@@ -39,9 +39,9 @@ function drawLineTransition(maleFemale, total) {
   var outputFormat = d3.time.format("%Y");
 
   // add a tooltip to the page - not to the svg itself!
-  var tooltip = d3.select("body")
+  /*var tooltip = d3.select("body")
     .append("div")
-    .attr("class", "tooltip");
+    .attr("class", "tooltip");*/
 
   //Create the empty SVG image
   var svg = d3.select(".interactive3")
@@ -61,35 +61,9 @@ function drawLineTransition(maleFemale, total) {
       return yScale(+d.percent);
     });
 
-  /*queue()
-        .defer(d3.csv, "Race_Education_Data_Male_Female.csv")  // maleFemale
-        .defer(d3.csv, "Race_Education_Data_Total.csv") // total
-        .await(doStuff);*/
-
   //function doStuff(error, maleFemale, total) {
 
     var years = d3.keys(total[0]).slice(0, 13);
-
-    /*total.forEach(function(d) {
-      delete d.Years;
-    });
-
-    var arr = Object.keys(total[0]).map(function (key) {return +total[0][key]});*/
-
-    //console.log(arr);
-
-
-
-    // set up the domain here, from the data i read in. I'm starting at 0, not min.
-    //widthScale.domain(d3.extent(arr));
-    //console.log(d3.extent(arr));
-
-    // js map: will make a new array out of all the d["Race or Ethnicity"] fields:
-    //heightScale.domain(total[0].map(function(d) { return d["Years"]; } ));
-    //console.log(Object.keys(total[0]).map(function(d) {return d["Years"]}));
-
-    //console.log(maleFemale);
-    //console.log(total);
 
     var dataGender = [],
         dataTotal = [],
@@ -146,10 +120,6 @@ function drawLineTransition(maleFemale, total) {
       });
 
     }); // End forEach for total
-
-    //console.log(dataGender);
-    //console.log(dataTotal);
-    //console.log(dataFake);
 
     xScale.domain(
       d3.extent(years, function(d) {
@@ -336,8 +306,6 @@ function drawLineTransition(maleFemale, total) {
         var lines = d3.selectAll("path.line");
         //console.log(lines);
 
-
-
         var thisButton = d3.select(this);
         thisButton.classed("selected", true);
 
@@ -348,8 +316,5 @@ function drawLineTransition(maleFemale, total) {
           //console.log("Total!");
           drawSingleLine(lines);
         }
-
-
-
       });
 }
