@@ -16,7 +16,8 @@ function drawMap(costs, json) {
 
   // Define linear scale for output
   var stateColor = d3.scale.linear()
-                .range(["yellow", "red"]);
+                .domain([-1, 50, 100])
+                .range(["yellow", "white", "red"]);
 
 
   //Create SVG element and append map to the SVG
@@ -43,7 +44,7 @@ function drawMap(costs, json) {
 
       //console.log("json", json);
       //console.log("costs", costs);
-      stateColor.domain(d3.extent(costs, function(s) { return s["percent_change_4year"];})); // setting the range of the input data
+      //stateColor.domain(d3.extent(costs, function(s) { return s["percent_change_4year"];})); // setting the range of the input data
       //stateColor.domain([0, 100]); // Represents 0 to 100 percent.
 
       // Loop through each state data value in the .csv file

@@ -10,7 +10,7 @@ function chart(maleFemale, total) {
       dataTotal = [],
       dataFake = [];
 
-var textNote,
+  var textNote,
       textNoteTotal,
       svg, line, xAxis, yAxis, xScale, yScale, dateFormat, outputFormat, lines;
 
