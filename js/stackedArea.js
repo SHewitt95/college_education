@@ -112,7 +112,7 @@ function drawStackedArea(aid) {
       .style("fill", function(d,i) {
         return colorScale(i);
       })
-      .style("opacity", 0.1);
+      .style("opacity", 0.5);
 
 		//Axes
 		svg.append("g")

@@ -32,12 +32,16 @@ function loadData(error, maleFemale, total, bachelor, pop_dist, count, genderEdu
     var line = chart(maleFemale, total);
     var miniMultiple = drawMiniMultiple(stateCost2Year, stateCost4Year);
     var stackedArea = drawStackedArea(aid);
+    var scatter = drawScatterPlot(stateCost4Year, bachelor);
+
+    console.log(bachelor);
 
 
     myMap().fourYear();
     line().drawDouble();
     miniMultiple().fourYearBars();
     stackedArea().drawMyArea();
+    scatter().drawScatter();
 
   }
 
