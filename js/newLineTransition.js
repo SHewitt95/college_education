@@ -15,15 +15,7 @@ function chart(maleFemale, total, position) {
   var years, groupGender, textGroup, firstLine, secondLine;
 
   function my() {
-    // generate chart here, using `width` and `height`
-    //var margin = {top: 20, right: 30, bottom: 40, left: 50};
 
-    // add a tooltip to the page - not to the svg itself!
-    /*var tooltip = d3.select("body")
-      .append("div")
-      .attr("class", "tooltip");*/
-
-      //Set up scales - I already know the start and end years, not using data for it.
       xScale = d3.time.scale()
                 .range([ 0, width ]);
 
@@ -190,8 +182,8 @@ function chart(maleFemale, total, position) {
         lines = svg.selectAll("path.line");
         firstLine = d3.select(lines[0][0]);
         secondLine = d3.select(lines[0][1]);
-        firstLine.style("stroke", "blue"); // Male
-        secondLine.style("stroke", "red"); // Female
+        firstLine.style("stroke", "blue").style("fill", "none"); // Male
+        secondLine.style("stroke", "red").style("fill", "none"); // Female
 
         //Axes
         svg.append("g")
