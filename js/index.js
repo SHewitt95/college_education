@@ -5,8 +5,11 @@ index.js: The file loads all the data needed for the single-page application. On
 
 */
 
+// Gets screensize of container on initial page load.
 var fullwidth = d3.select(".container").node().getBoundingClientRect().width;
 var fullheight = 450;
+
+var tooltip = d3.select("body").append("div").attr("class", "tooltip").style("display", "none");
 
 queue()
       .defer(d3.csv, "data/Race_Education_Data_Male_Female.csv")
@@ -29,16 +32,16 @@ function loadData(error, maleFemale, total, bachelor, pop_dist, count, genderEdu
   } else {
     drawBars(count);
     var myMap = drawNewMap(stateCost2Year, stateCost4Year, states);
-    var line = chart(maleFemale, total);
+    var line = chart(maleFemale, total, "interactive3");
+    var line2 = chart(maleFemale, total, "interactive_doubleline");
     var miniMultiple = drawMiniMultiple(stateCost2Year, stateCost4Year);
     var stackedArea = drawStackedArea(aid);
     var scatter = drawScatterPlot(stateCost4Year, bachelor);
 
-    console.log(bachelor);
-
-
+    //console.log(bachelor);
     myMap().fourYear();
-    line().drawDouble();
+    line().drawSingle();
+    line2().drawDouble();
     miniMultiple().fourYearBars();
     stackedArea().drawMyArea();
     scatter().drawScatter();

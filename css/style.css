@@ -87,8 +87,9 @@ div.container div.story-section div.interactive.interactive3 svg g g.gender path
 div.tooltip {
     position: absolute;
     text-align: left;
-    min-width: 100px;
-    height: 130px;
+    width: auto;
+		max-width: 150px;
+    height: auto;
     padding: 2px;
     font: 12px sans-serif;
     background: white;
@@ -99,4 +100,6 @@ div.tooltip {
 
 .tooltip p {
     margin: 5px;
+		line-height: 1.5;
+		font-size: 1.15em;
 }

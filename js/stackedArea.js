@@ -1,85 +1,74 @@
 function drawStackedArea(aid) {
 
-  var width, height, margin, x, y, xAxis, yAxis, area, svg, dateFormat, groups, colorScale;
+  console.log("Aid", aid);
+
+  var width, height, margin, xScale, yScale, xAxis, yAxis, area, svg, dateFormat, groups, colorScale, layers, originalColor;
 
   var years = ["1990", "1991", "1992", "1993", "1994", "1995", "1996", "1997", "1998", "1999", "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014"];
 
   var index = 0;
 
-  var dataset = [];
+  var dataset = [],
+      nestedDataset = [],
+      allAidValues = [],
+      layersArray = [];
 
   function my() {
 
-    margin = {top: 20, right: 100, bottom: 40, left:100};
+    margin = {top: 20, right: 30, bottom: 30, left: 100},
+    width = fullwidth - margin.left - margin.right,
+    height = fullheight - margin.top - margin.bottom;
 
-		width = fullwidth - margin.left - margin.right;
-		height = fullheight - margin.top - margin.bottom;
+    xScale = d3.time.scale()
+        .range([0, width]);
 
+    yScale = d3.scale.linear()
+        .range([height, 0]);
 
-		//Set up date formatting and years
-		dateFormat = d3.time.format("%Y");
-
-    console.log("Aid", aid);
-
-
-		//Set up scales
-		x = d3.time.scale()
-							.range([ 0, width ]);
-
-		y = d3.scale.linear()
-							.range([ 0, height ]);
+    //Set up date formatting and years
+    dateFormat = d3.time.format("%Y");
+    outputFormat = d3.time.format("%Y");
 
     colorScale = d3.scale.category20b();
 
-		//Configure axis generators
-		xAxis = d3.svg.axis()
-						.scale(x)
-						.orient("bottom")
-						.ticks(15)
-						.tickFormat(function(d) {
-							return dateFormat(d);
-						});
+    xAxis = d3.svg.axis()
+        .scale(xScale)
+        .orient("bottom")
+        .ticks(10);
 
-		yAxis = d3.svg.axis()
-						.scale(y)
-						.orient("left");
+    yAxis = d3.svg.axis()
+        .scale(yScale)
+        .orient("left");
 
-		//Configure area generator
-		area = d3.svg.area()
-			.x(function(d) {
-				return x(dateFormat.parse(d.year));
-			})
-			.y0(height)
-			.y1(function(d) {
-				return y(+d.amount);
-			});
+    stack = d3.layout.stack()
+        .offset("zero") // try "silhouette" next, that's a streamgraph!
+        //.order("inside-out")  // try this and see what you think
+        .values(function(d) { return d.values; })
+        .x(function(d) { return d["year"];})
+        .y(function(d) { return +d["aid"]; });
 
-		//Create the empty SVG image
-		svg = d3.select(".interactive5")
-					.append("svg")
-					.attr("width", fullwidth)
-					.attr("height", fullheight)
-					.append("g")
-					.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    // use the result of the stack to draw the shapes using area
+    area = d3.svg.area()
+        .interpolate("cardinal")
+        .x(function(d) { return xScale(d["year"]); })
+        .y0(function(d) { return yScale(d.y0); })
+        .y1(function(d) { return yScale(d.y0 + d.y); });
+
+    svg = d3.select(".interactive5").append("svg")
+        .attr("width", fullwidth )
+        .attr("height", fullheight)
+      .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
     makeDataSet();
 
-    console.log("dataset", dataset);
+    nestedDataset = d3.nest()
+      .key(function(d) {
+        return d["source"];
+      })
+      .entries(dataset);
 
-    //Set scale domains
-		x.domain(d3.extent(years, function (d) {
-				return dateFormat.parse(d);
-			})
-		);
-
-		y.domain([
-			d3.max(dataset, function(d) {
-				return d3.max(d.costs, function(d) {
-					return +d.amount;
-				});
-			}),
-			0
-		]);
+      console.log("nestedDataset",nestedDataset);
 
     return my;
 
@@ -87,71 +76,119 @@ function drawStackedArea(aid) {
 
   my.drawMyArea = function() {
 
-    groups = svg.selectAll("g")
-					.data(dataset)
-					.enter()
-					.append("g");
+    layers = stack(nestedDataset);
+    console.log("layers", layers);  // it adds a y and y0 to the data values.
 
-		//Append a title with the name (so we get easy tooltips)
-		groups.append("title")
-			.text(function(d) {
-        console.log(d);
-				return d["source"];
-			});
+    makeLayersArray();
 
-		//Within each group, create a new path,
-		//binding just the data to each one
-		groups.selectAll("path")
-			.data(function(d) {
-				return [ d["costs"] ];
-			})
-			.enter()
-			.append("path")
-			.attr("class", "area")
-			.attr("d", area)
-      .style("fill", function(d,i) {
-        return colorScale(i);
-      })
-      .style("opacity", 0.5);
+    // reset these after doing the layer stacking.
+    xScale.domain([1990, 2014]);
 
-		//Axes
-		svg.append("g")
-			.attr("class", "x axis")
-			.attr("transform", "translate(0," + height + ")")
-			.call(xAxis);
+    yScale.domain([0, d3.max(layersArray, function(d) {
+      //console.log("yScale", d);
+      return d.y0 + d.y; })]); // highest combo
 
-		svg.append("g")
-			.attr("class", "y axis")
-			.call(yAxis);
+    var myLayers = svg.selectAll(".layer")
+      .data(layers)
+    .enter().append("path")
+      .attr("class", "layer")
+      .attr("d", function(d) { return area(d.values); })
+      .style("fill", function(d, i) { return colorScale(i); }); // just count off
+      /*.append("title")
+      .text(function(d) {
+        return d.key; // country is the key in the nest
+      })*/
+
+      myLayers
+      .on("mouseout", mouseout)
+      .on("mousemove", mousemove)
+      .on("mouseover", mouseover);
+
+    svg.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxis);
+
+    svg.append("g")
+        .attr("class", "y axis")
+        .call(yAxis);
+
+    return my;
 
     } // End drawMyArea
 
   function makeDataSet() {
 
-    aid.forEach(function(d,i) {
+    console.log("raw aid", aid);
 
-      var data = [];
+    aid.forEach(function(d) {
+
+      var source = d["Source"];
 
       years.forEach(function(y) {
 
-        if (d[y]) {
-          data.push({
-            year: y,
-            source: d["Source"],
-            amount: +d[y]
-          });
-        }
+        dataset.push({
+          source: source,
+          year: +y,
+          aid: +d[y]
+        });
 
-      });
+        allAidValues.push(+d[y]);
 
-      dataset.push({
-        source: d["Source"],
-        costs: data
       });
 
     });
 
+    console.log("dataset", dataset);
+
   } // End makeDataSet
+
+  function makeLayersArray() {
+
+    layers.forEach(function(d) {
+
+      //console.log("make array", d);
+      d["values"].forEach(function(v) {
+        //console.log("values", v);
+        layersArray.push(v);
+      });
+
+    });
+
+    console.log("layersArray", layersArray);
+
+  } // End makeLayersArray
+
+  function mouseover(e) {
+
+    var thisLayer = d3.select(this);
+    //console.log("thisLayer", thisLayer.data());
+    originalColor = thisLayer.style("fill");
+
+    thisLayer.style("fill", "orange");
+
+    tooltip
+      .style("display", null)
+      .html("<p><b>Source:</b> " + thisLayer.data()[0].key + "</p>");
+
+  }
+
+  function mousemove(e) {
+    tooltip
+      .style("top", (d3.event.pageY - 10) + "px" )
+      .style("left", (d3.event.pageX + 10) + "px");
+  }
+
+  function mouseout(e) {
+
+    var thisLayer = d3.select(this);
+
+    thisLayer.style("fill", originalColor);
+
+    tooltip
+      .style("display", "none");
+
+  }
 
   return my;
 

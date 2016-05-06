@@ -1,14 +1,3 @@
-/*
-State, % with bachelor, 4-year cost in 2014
-
-[{
-  state: "US",
-  percent: 33.1,
-  cost: 15000
-},{}]
-
-*/
-
 function drawScatterPlot(stateCost4Year, bachelor) {
 
   var margin, width, height, x, y, xAxis, yAxis, svg, circles;
@@ -78,12 +67,23 @@ function drawScatterPlot(stateCost4Year, bachelor) {
 			.attr("cy", function(d) {
 				return y(d.percent);
 			})
-			.attr("r", 4)
-			.attr("fill", "steelblue")
-			.append("title")
-			.text(function(d) {
-				return d.state + "'s average four-year tuition in 2014 was $" + d.cost + ", and " + d.percent + "% of its population had a bachelor's degree.";
-			});
+			.attr("r", 5)
+			.attr("fill", function(d) {
+        if (d["state"] == "United States") {
+          return "orange";
+        } else {
+          return "rgb(31, 119, 180)";
+        }
+      })
+			.append("title");
+			/*.text(function(d) {
+				return d.state + "'s average four-year tuition in 2014 was $" + d.cost + ", and " + d.percent + "% of its population has a bachelor's degree.";
+			});*/
+
+      circles
+        .on("mouseover", mouseover)
+        .on("mousemove", mousemove)
+        .on("mouseout", mouseout);
 
 		svg.append("g")
 			.attr("class", "x axis")
@@ -101,6 +101,7 @@ function drawScatterPlot(stateCost4Year, bachelor) {
     //console.log("State cost 4 year", stateCost4Year);
     //console.log("Bachelor", bachelor);
     var total = 0;
+    var average = 0;
     var nestedData_costs,
         nestedData_bachelor;
 
@@ -129,7 +130,8 @@ function drawScatterPlot(stateCost4Year, bachelor) {
           state["cost"] = +c["values"][0]["2014"];
           finalData.push(state);
 
-          //total += state["cost"];
+          total += +state["cost"];
+        //  console.log("total", total);
 
         }
 
@@ -137,7 +139,50 @@ function drawScatterPlot(stateCost4Year, bachelor) {
 
     });
 
+    average = (total/52).toPrecision(6);
+
+    finalData.push({state: "United States", percent: 30.1, cost: average});
+
     //console.log("final",finalData);
+
+  }
+
+  function mouseover(e) {
+
+    var thisCircle = d3.select(this);
+    //console.log(thisCircle.data()[0]);
+
+    thisCircle.style("fill", "red");
+
+    tooltip
+      .style("display", null)
+      .html("<p>" + thisCircle.data()[0].state +
+      "'s average four-year tuition in 2014 was $" +
+      thisCircle.data()[0].cost + ", and " +
+      thisCircle.data()[0].percent + "% of its population had a bachelor's degree.</p>");
+
+  }
+
+  function mousemove(e) {
+    tooltip
+      .style("top", (d3.event.pageY - 10) + "px" )
+      .style("left", (d3.event.pageX + 10) + "px");
+  }
+
+  function mouseout(e) {
+
+    var thisCircle = d3.select(this);
+
+    thisCircle.style("fill", function() {
+      if (thisCircle.data()[0].state == "United States") {
+        return "orange";
+      } else {
+        return "rgb(31, 119, 180)";
+      }
+    });
+
+    tooltip
+      .style("display", "none");
 
   }
 

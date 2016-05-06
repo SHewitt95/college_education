@@ -35,15 +35,6 @@ function drawBars(data) {
     .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-  var tooltip = d3.select("body").append("div").attr("class", "tooltip").style("display", "none");
-
-//  d3.csv("data/Race_Education_Count.csv", function(error, data) {
-
-    /*if (error) {
-      console.log(error);
-    }*/
-
-    console.log(data);
 
     var races = data.map(function(d) {
       return d["Race"];
@@ -236,9 +227,9 @@ function drawBars(data) {
 
       tooltip
         .style("display", null) // this removes the display none setting from it
-        .html("<p>Race: " + d.race +
-              "<br>Number of People: " + number +
-              "<br>Year: " + d.x + " </p>");
+        .html("<p><b>Race:</b> " + d.race +
+              "<br><b>Number of People (in thousands):</b> " + number +
+              "<br><b>Year:</b> " + d.x + " </p>");
     }
 
     function mousemove(d) {

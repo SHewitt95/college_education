@@ -3,7 +3,7 @@ function drawNewMap(costs_2year, costs_4year, json) {
   //Width and height of map
   var width, height,
   projection, path,
-  stateColor, svg, tooltip,
+  stateColor, svg,
   years, nested_data_2year, nested_data_4year, allValues;
 
   function my() {
@@ -34,11 +34,7 @@ function drawNewMap(costs_2year, costs_4year, json) {
                 .attr("width", width)
                 .attr("height", height);
 
-    // Append Div for tooltip to SVG
-    tooltip = d3.select("body")
-                .append("div")
-                .attr("class", "tooltip")
-                .style("display", "none");
+
 
     years = ["2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012"];
 
@@ -93,7 +89,7 @@ function drawNewMap(costs_2year, costs_4year, json) {
     //console.log(allValues);
 
     stateColor
-      .range(["green", "white", "red"])
+      .range(["blue", "white", "orange"])
       .domain([
         d3.min(allValues),
         d3.mean(allValues),
@@ -146,14 +142,14 @@ function drawNewMap(costs_2year, costs_4year, json) {
     nested_data_4year.forEach(function(d) {
     //  years.forEach(function(y) {
       if (d.key !== "District of Columbia" && d.key !== "Puerto Rico") {
-        allValues.push(+d.values[0]["2012"]);
+        allValues.push(+d.values[0]["2014"]);
       }
     //  });
     });
     //console.log(allValues);
 
     stateColor
-      .range(["green", "white", "red"])
+      .range(["rgb(31, 119, 180)", "white", "orange"])
       .domain([
         d3.min(allValues),
         d3.mean(allValues),
@@ -173,7 +169,7 @@ function drawNewMap(costs_2year, costs_4year, json) {
         })
         .style("fill", function(d) {
             // Get data value for visited
-            return stateColor(+d.values[0]["2012"]);
+            return stateColor(+d.values[0]["2014"]);
         });
 
       // Adds legend
@@ -214,7 +210,7 @@ function drawNewMap(costs_2year, costs_4year, json) {
       .html("<p><b>State:</b> " + thisPath.attr("id") + "</p>" +
             //"<p><b>Percent Change:</b> " + thisPath.attr("data-percentValue4Year") + "%</p>" +
             //"<p><b>Cost of 4-year college, 04-05:</b> $" + thisPath.attr("data-cost4year0405") + "</p>" +
-            "<p><b>In-State Tuition, 11-12:</b> $" + thisPath.data()[0]["values"][0]["2012"] + "</p>" );
+            "<p><b>In-State Tuition, 14-15:</b> $" + thisPath.data()[0]["values"][0]["2012"] + "</p>" );
 
   }
 

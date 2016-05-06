@@ -1,10 +1,8 @@
-function chart(maleFemale, total) {
+function chart(maleFemale, total, position) {
 
   var margin = {top: 20, right: 30, bottom: 50, left: 50};
   var width = fullwidth - margin.left - margin.right;
   var height = fullheight - margin.top - margin.bottom;
-
-  var lines = d3.selectAll("path.line");
 
   var dataGender = [],
       dataTotal = [],
@@ -14,9 +12,11 @@ function chart(maleFemale, total) {
       textNoteTotal,
       svg, line, xAxis, yAxis, xScale, yScale, dateFormat, outputFormat, lines;
 
+  var years, groupGender, textGroup, firstLine, secondLine;
+
   function my() {
     // generate chart here, using `width` and `height`
-    var margin = {top: 20, right: 30, bottom: 40, left: 50};
+    //var margin = {top: 20, right: 30, bottom: 40, left: 50};
 
     // add a tooltip to the page - not to the svg itself!
     /*var tooltip = d3.select("body")
@@ -64,16 +64,14 @@ function chart(maleFemale, total) {
 
 
     //Create the empty SVG image
-    svg = d3.select(".interactive3")
+    svg = d3.select("." + position)
           .append("svg")
           .attr("width", fullwidth)
           .attr("height", fullheight)
           .append("g")
           .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    //function doStuff(error, maleFemale, total) {
-
-      var years = d3.keys(total[0]).slice(0, 13);
+      years = d3.keys(total[0]).slice(0, 13);
 
       // Creates data array for maleFemale csv.
       maleFemale.forEach(function(d) {
@@ -141,14 +139,14 @@ function chart(maleFemale, total) {
         0
       ]);*/
 
-        var groupGender = svg.selectAll("g.gender")
+        groupGender = svg.selectAll("g.gender")
           .data(dataGender)
           .enter()
           .append("g")
           //.attr("class", "lines")
           .attr("class", "gender");
 
-        var textGroup = svg.selectAll("g.myText")
+        textGroup = svg.selectAll("g.myText")
           .data(dataTotal)
           .enter()
           .append("g")
@@ -189,9 +187,9 @@ function chart(maleFemale, total) {
           .attr("d", line); // calls the line function you defined above, using that array*/
 
         // Grabs individual lines and colors them.
-        lines = d3.selectAll("path.line");
-        var firstLine = d3.select(lines[0][0]);
-        var secondLine = d3.select(lines[0][1]);
+        lines = svg.selectAll("path.line");
+        firstLine = d3.select(lines[0][0]);
+        secondLine = d3.select(lines[0][1]);
         firstLine.style("stroke", "blue"); // Male
         secondLine.style("stroke", "red"); // Female
 
@@ -280,8 +278,8 @@ function chart(maleFemale, total) {
   my.drawDouble = function() {
     //lines.transition().attr("d", line(dataGender[0].data));
     //console.log(d3.select(lines[0][1]));
-    var firstLine = d3.select(lines[0][0]);
-    var secondLine = d3.select(lines[0][1]);
+    firstLine = d3.select(lines[0][0]);
+    secondLine = d3.select(lines[0][1]);
 
     var dataGenderYScale = yScale.domain([
       d3.max(dataGender, function(d) {
